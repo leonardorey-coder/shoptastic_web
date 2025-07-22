@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shoptastic - The Best Shopping List App</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- GSAP + ScrollTrigger + Lenis -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.19/bundled/lenis.min.js"></script>
+    
+    <!-- Three.js para efectos 3D -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <h2>SHOPTASTIC</h2>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="#hero">Home</a></li>
+                    <li><a href="#problema">Problem</a></li>
+                    <li><a href="#solucion">Solution</a></li>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#team">Team</a></li>
+                </ul>
+                <div class="nav-toggle">    
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero">
+        <!-- Shopping Themed Decorative Elements -->
+        <div class="shopping-decorations">
+            <div class="barcode-lines">
+                <span></span><span></span><span></span><span></span><span></span>
+                <span></span><span></span><span></span><span></span><span></span>
+            </div>
+            <div class="shopping-grid">
+                <div class="grid-item"></div>
+                <div class="grid-item"></div>
+                <div class="grid-item"></div>
+                <div class="grid-item"></div>
+            </div>
+            <div class="price-bubbles">
+                <div class="price-bubble">$</div>
+                <div class="price-bubble">€</div>
+                <div class="price-bubble">¥</div>
+            </div>
+        </div>
+        
+        <!-- Canvas 3D Background -->
+        <canvas id="hero-canvas" class="hero-canvas"></canvas>
+        
+        <!-- Floating Elements -->
+        <div class="floating-elements">
+            <div class="floating-icon shopping-cart">🛒</div>
+            <div class="floating-icon mobile-app">📱</div>
+            <div class="floating-icon price-tag">🏷️</div>
+            <div class="floating-icon check-list">✅</div>
+            <div class="floating-icon barcode">�</div>
+            <div class="floating-icon savings">�💰</div>
+            <div class="floating-icon grocery-bag">🛍️</div>
+            <div class="floating-icon receipt">🧾</div>
+        </div>
+        
+        <div class="hero-container">
+            <div class="hero-content" data-scroll-speed="0.5">
+                <h1 class="hero-title split-text">
+                    Welcome to <span class="highlight glow-text">Shoptastic</span><br>
+                    The <span class="highlight glow-text">Smartest</span> Shopping List App
+                </h1>
+                <p class="hero-subtitle fade-in-up">
+                    Good morning! Today I want to introduce you to Shoptastic - the <strong>most innovative</strong> and <strong>most efficient</strong> 
+                    shopping list application. With real-time prices, 
+                    family collaboration, and the <strong>best</strong> user experience available.
+                </p>
+                <div class="hero-buttons slide-in-left">
+                    <button class="btn-primary morphing-btn">
+                        <i class="fab fa-apple"></i>
+                        <span>Download for iOS</span>
+                        <div class="btn-ripple"></div>
+                    </button>
+                    <button class="btn-secondary morphing-btn">
+                        <i class="fab fa-google-play"></i>
+                        <span>Download for Android</span>
+                        <div class="btn-ripple"></div>
+                    </button>
+                </div>
+                <div class="hero-stats slide-in-right">
+                    <div class="stat counter-stat" data-target="10">
+                        <h3 class="counter">0x</h3>
+                        <p>Faster</p>
+                        <div class="stat-progress"></div>
+                    </div>
+                    <div class="stat counter-stat" data-target="100">
+                        <h3 class="counter">0%</h3>
+                        <p>More Accurate</p>
+                        <div class="stat-progress"></div>
+                    </div>
+                    <div class="stat counter-stat" data-target="50">
+                        <h3 class="counter">0%</h3>
+                        <p>More Savings</p>
+                        <div class="stat-progress"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-image parallax-element" data-scroll-speed="0.3">
+                <div class="phone-3d-container">
+                    <img src="assets/images/shoptastic/nuncaOlvidesComprar.png" alt="Shoptastic - Never forget what to buy" class="app-screenshot floating-phone">
+                    <div class="phone-glow"></div>
+                    <div class="phone-particles"></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Scroll Indicator -->
+        <div class="scroll-indicator">
+            <div class="scroll-text">Scroll to discover</div>
+            <div class="scroll-arrow bounce">
+                <i class="fas fa-chevron-down"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section id="problema" class="problem">
+        <div class="container">
+            <div class="section-header reveal-text">
+                <h2 class="section-title split-text">Let Me Start With The Problem</h2>
+                <p class="section-subtitle fade-in-up">Before showing you our solution, let me explain why traditional shopping is <strong>slower</strong>, <strong>more expensive</strong> and <strong>less efficient</strong></p>
+            </div>
+            <div class="problem-grid staggered-cards">
+                <div class="problem-card morphing-card" data-tilt>
+                    <div class="problem-icon rotating-icon">😵</div>
+                    <h3>Constant Forgetfulness</h3>
+                    <p>People forget <strong>more than 40%</strong> of the products they need to buy.</p>
+                    <div class="card-hover-effect"></div>
+                </div>
+                <div class="problem-card morphing-card" data-tilt>
+                    <div class="problem-icon rotating-icon">💸</div>
+                    <h3>Unknown Prices</h3>
+                    <p>Not knowing prices leads to spending <strong>30% more</strong> than planned.</p>
+                    <div class="card-hover-effect"></div>
+                </div>
+                <div class="problem-card morphing-card" data-tilt>
+                    <div class="problem-icon rotating-icon">⏰</div>
+                    <h3>Time Wasting</h3>
+                    <p>Searching for products and comparing prices takes <strong>2x more time</strong> than necessary.</p>
+                    <div class="card-hover-effect"></div>
+                </div>
+                <div class="problem-card morphing-card" data-tilt>
+                    <div class="problem-icon rotating-icon">🤝</div>
+                    <h3>Poor Coordination</h3>
+                    <p>Families cannot coordinate their shopping in an <strong>efficient</strong> way.</p>
+                    <div class="card-hover-effect"></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Animated Background Elements -->
+        <div class="section-bg-elements">
+            <div class="bg-shape shape-1"></div>
+            <div class="bg-shape shape-2"></div>
+            <div class="bg-shape shape-3"></div>
+        </div>
+    </section>
+
+    <!-- Solution Section -->
+    <section id="solucion" class="solution">
+        <div class="container">
+            <div class="section-header reveal-text">
+                <h2 class="section-title split-text">Now, Here's Our Solution</h2>
+                <p class="section-subtitle fade-in-up">This is where Shoptastic comes in: The <strong>smartest</strong> and <strong>most complete</strong> shopping list app that solves all these problems</p>
+            </div>
+            <div class="solution-content parallax-section">
+                <div class="solution-text slide-in-left">
+                    <h3 class="glow-text">The <span class="highlight">Best</span> Shopping Experience</h3>
+                    <div class="solution-features staggered-features">
+                        <div class="feature-item morphing-feature" data-delay="0.1">
+                            <i class="fas fa-check-circle pulse-icon"></i>
+                            <span><strong>Real-time prices</strong> from the <strong>best</strong> stores</span>
+                            <div class="feature-glow"></div>
+                        </div>
+                        <div class="feature-item morphing-feature" data-delay="0.2">
+                            <i class="fas fa-check-circle pulse-icon"></i>
+                            <span><strong>Smarter lists</strong> with automatic calculation</span>
+                            <div class="feature-glow"></div>
+                        </div>
+                        <div class="feature-item morphing-feature" data-delay="0.3">
+                            <i class="fas fa-check-circle pulse-icon"></i>
+                            <span><strong>Faster collaboration</strong> between family and friends</span>
+                            <div class="feature-glow"></div>
+                        </div>
+                        <div class="feature-item morphing-feature" data-delay="0.4">
+                            <i class="fas fa-check-circle pulse-icon"></i>
+                            <span><strong>More efficient organization</strong> by categories</span>
+                            <div class="feature-glow"></div>
+                        </div>
+                        <div class="feature-item morphing-feature" data-delay="0.5">
+                            <i class="fas fa-check-circle pulse-icon"></i>
+                            <span><strong>Cleaner interface</strong> and <strong>easier</strong> to use</span>
+                            <div class="feature-glow"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="solution-phones slide-in-right">
+                    <div class="phone-showcase">
+                        <img src="assets/images/shoptastic/contenidoLista.png" alt="Shoptastic - List content with prices" class="app-screenshot floating-phone-2">
+                        <div class="phone-reflection"></div>
+                        <div class="orbit-ring ring-1"></div>
+                        <div class="orbit-ring ring-2"></div>
+                        <div class="orbit-ring ring-3"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 3D Background Canvas -->
+        <canvas id="solution-canvas" class="section-canvas"></canvas>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <div class="section-header">
+                <h2>Let Me Show You The Features</h2>
+                <p>These are the <strong>most advanced</strong> features that make Shoptastic the <strong>best</strong> shopping experience</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-tags"></i>
+                    </div>
+                    <h3>Real-Time Prices</h3>
+                    <p>We connect with the <strong>most popular</strong> stores (Soriana, Walmart, Chedraui) to show you the <strong>best</strong> prices instantly.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-calculator"></i>
+                    </div>
+                    <h3>Automatic Calculation</h3>
+                    <p>The app automatically calculates the total price based on quantity and current price. <strong>More accurate</strong> than any other app.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-sticky-note"></i>
+                    </div>
+                    <h3>Personalized Notes</h3>
+                    <p>Add specific notes to each product like "buy 1kg" or "choose the <strong>freshest</strong> ones". <strong>More detailed</strong> than simple lists.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Family Collaboration</h3>
+                    <p>Share lists with family and friends. Changes are seen in real time. <strong>Faster</strong> than text messages.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-th-large"></i>
+                    </div>
+                    <h3>Organization by Categories</h3>
+                    <p>Browse by categories from each store: fruits, meats, dairy, spices. <strong>More organized</strong> than manual searches.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-store"></i>
+                    </div>
+                    <h3>Multiple Stores</h3>
+                    <p>Compare prices between Soriana, Walmart, Chedraui and Comercial Mexicana. Find the <strong>best</strong> option always.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Demo Section -->
+    <section class="demo">
+        <div class="container">
+            <div class="section-header">
+                <h2>Let Me Demonstrate How It Works</h2>
+                <p>Here's the <strong>simplest</strong> and <strong>most efficient</strong> process to revolutionize your shopping experience</p>
+            </div>
+            <div class="demo-content">
+                <div class="demo-steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h3>Create Your List</h3>
+                            <p>Add products <strong>faster</strong> than writing on paper. Search in organized categories from each store.</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h3>See Real Prices</h3>
+                            <p>View updated prices from the <strong>best</strong> stores. You'll always have the <strong>most accurate</strong> information.</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h3>Customize and Share</h3>
+                            <p>Add quantities, notes and share with family. The <strong>most advanced</strong> collaboration in the market.</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <h3>Smart Shopping</h3>
+                            <p>Go to the store with the <strong>best</strong> information: what to buy, how much it costs, where it's <strong>cheapest</strong>.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="demo-image">
+                    <img src="assets/images/shoptastic/compartirLista.png" alt="Shoptastic - Share List with family and friends" class="app-screenshot">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section id="team" class="team">
+        <div class="container">
+            <div class="section-header">
+                <h2>Meet The Team Behind Shoptastic</h2>
+                <p>Let me introduce you to the <strong>best</strong> developers who are creating the <strong>most innovative</strong> shopping app</p>
+            </div>
+            <div class="team-grid">
+                <div class="team-member">
+                    <div class="member-photo">
+                        <div class="photo-placeholder">JL</div>
+                    </div>
+                    <h3>Juan Leonardo Cruz Flores</h3>
+                    <p class="member-role">Co-founder & Developer</p>
+                    <p class="member-bio">Specialist in user experience and mobile application architecture.</p>
+                    <div class="member-social">
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <div class="member-photo">
+                        <div class="photo-placeholder">RG</div>
+                    </div>
+                    <h3>Raul Gerardo Pech Canché</h3>
+                    <p class="member-role">Co-founder & CTO</p>
+                    <p class="member-bio">Expert in API integration and real-time systems for e-commerce.</p>
+                    <div class="member-social">
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <div class="member-photo">
+                        <div class="photo-placeholder">RN</div>
+                    </div>
+                    <h3>Raul Noe Gongora Canu</h3>
+                    <p class="member-role">Co-founder & CPO</p>
+                    <p class="member-bio">Product designer focused on intuitive interfaces and advanced functionality.</p>
+                    <div class="member-social">
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2>So, Are You Ready for the <span class="highlight">Best</span> Shopping Experience?</h2>
+                <p>Thank you for your attention! Now you can join thousands of families who already use the <strong>most efficient</strong> shopping list app. The choice is yours.</p>
+                <div class="cta-buttons">
+                    <button class="btn-primary">
+                        <i class="fab fa-apple"></i>
+                        Download for iOS
+                    </button>
+                    <button class="btn-primary">
+                        <i class="fab fa-google-play"></i>
+                        Download for Android
+                    </button>
+                </div>
+                <div class="cta-guarantee">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>Free download • No ads • The <strong>safest</strong> • Thank you!</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3>SHOPTASTIC</h3>
+                    <p>The <strong>most innovative</strong> shopping list app on the market.</p>
+                </div>
+                <div class="footer-columns">
+                    <div class="footer-column">
+                        <h4>Product</h4>
+                        <ul>
+                            <li><a href="#features">Features</a></li>
+                            <li><a href="#demo">How It Works</a></li>
+                            <li><a href="#">Pricing</a></li>
+                            <li><a href="#">Support</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Company</h4>
+                        <ul>
+                            <li><a href="#team">Team</a></li>
+                            <li><a href="#">Careers</a></li>
+                            <li><a href="#">Press</a></li>
+                            <li><a href="#">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Legal</h4>
+                        <ul>
+                            <li><a href="#">Privacy</a></li>
+                            <li><a href="#">Terms</a></li>
+                            <li><a href="#">Cookies</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Shoptastic. All rights reserved.</p>
+                <p>Created with ❤️ by Cruz Flores, Pech Canché and Gongora Canu</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="advanced-animations.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
