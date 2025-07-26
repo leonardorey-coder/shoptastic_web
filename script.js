@@ -2,19 +2,36 @@
 document.addEventListener('DOMContentLoaded', function() {
     const navToggle = document.querySelector('.nav-toggle');
     const navMenu = document.querySelector('.nav-menu');
-    
+
     if (navToggle && navMenu) {
         navToggle.addEventListener('click', function() {
-            navMenu.classList.toggle('active');
+            const isOpen = navMenu.classList.toggle('active');
             navToggle.classList.toggle('active');
+
+            if (window.innerWidth <= 768) {
+                navMenu.style.display = isOpen ? 'flex' : 'none';
+            }
         });
-        
+
         // Close menu when clicking on a link
         document.querySelectorAll('.nav-menu a').forEach(link => {
             link.addEventListener('click', () => {
                 navMenu.classList.remove('active');
                 navToggle.classList.remove('active');
+
+                if (window.innerWidth <= 768) {
+                    navMenu.style.display = 'none';
+                }
             });
+        });
+
+        // Reset menu on resize
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) {
+                navMenu.style.display = '';
+                navMenu.classList.remove('active');
+                navToggle.classList.remove('active');
+            }
         });
     }
 });
@@ -245,44 +262,6 @@ style.textContent = `
         to {
             transform: scale(4);
             opacity: 0;
-        }
-    }
-    
-    .nav-menu.active {
-        display: flex !important;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        right: 0;
-        background: rgba(255, 255, 255, 0.95);
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
-        flex-direction: column;
-        padding: 20px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        border-radius: 0 0 12px 12px;
-        border: 1px solid rgba(255, 255, 255, 0.3);
-    }
-    
-    .nav-toggle.active span:nth-child(1) {
-        transform: rotate(-45deg) translate(-5px, 6px);
-    }
-    
-    .nav-toggle.active span:nth-child(2) {
-        opacity: 0;
-    }
-    
-    .nav-toggle.active span:nth-child(3) {
-        transform: rotate(45deg) translate(-5px, -6px);
-    }
-    
-    @media (max-width: 768px) {
-        .nav-menu {
-            display: none;
-        }
-        
-        .nav-toggle {
-            display: flex !important;
         }
     }
 `;
