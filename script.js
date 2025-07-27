@@ -2,14 +2,18 @@
 document.addEventListener('DOMContentLoaded', function() {
     const navToggle = document.querySelector('.nav-toggle');
     const navMenu = document.querySelector('.nav-menu');
+    const body = document.body;
 
     if (navToggle && navMenu) {
         navToggle.addEventListener('click', function() {
-            const isOpen = navMenu.classList.toggle('active');
+            navMenu.classList.toggle('active');
             navToggle.classList.toggle('active');
-
-            if (window.innerWidth <= 768) {
-                navMenu.style.display = isOpen ? 'flex' : 'none';
+            
+            // Prevent body scroll when menu is open
+            if (navMenu.classList.contains('active')) {
+                body.style.overflow = 'hidden';
+            } else {
+                body.style.overflow = '';
             }
         });
 
@@ -18,19 +22,27 @@ document.addEventListener('DOMContentLoaded', function() {
             link.addEventListener('click', () => {
                 navMenu.classList.remove('active');
                 navToggle.classList.remove('active');
-
-                if (window.innerWidth <= 768) {
-                    navMenu.style.display = 'none';
-                }
+                body.style.overflow = '';
             });
         });
 
         // Reset menu on resize
         window.addEventListener('resize', () => {
             if (window.innerWidth > 768) {
-                navMenu.style.display = '';
                 navMenu.classList.remove('active');
                 navToggle.classList.remove('active');
+                body.style.overflow = '';
+            }
+        });
+        
+        // Close menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const isClickInsideNav = navToggle.contains(event.target) || navMenu.contains(event.target);
+            
+            if (!isClickInsideNav && navMenu.classList.contains('active')) {
+                navMenu.classList.remove('active');
+                navToggle.classList.remove('active');
+                body.style.overflow = '';
             }
         });
     }
